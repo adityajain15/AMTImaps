@@ -7,94 +7,46 @@
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900" rel="stylesheet">
   <style>
   body { margin:0; padding:0; }
   #map { position:absolute; top:0; bottom:0; width:100%; }
+  #choices{position: absolute;bottom: 0;right: 0;background-color: #023850;padding:1%;}
+  .mapboxgl-ctrl.mapboxgl-ctrl-attrib{
+    display: none;
+  }
+  span{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 900;
+    color: white;
+  }
+  .inputWrapper{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    color: white;
+  }
   </style>
 </head>
 <body>
-
   <div id='map'></div>
-  <script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoiaWxhYm1lZGlhIiwiYSI6ImNpbHYycXZ2bTAxajZ1c2tzdWU1b3gydnYifQ.AHxl8pPZsjsqoz95-604nw';
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9',
-    center: [-97.547760, 35.486067],
-    zoom: 11
-  });
-
-  map.on('load', function() {
-    map.addSource("route",  {
-        type: "geojson",
-        data: "china_claims_1.geojson"
-    });
-      map.addLayer({
-        "id": "China Continental Shelf",
-        "type": "line",
-        "source": "route",
-        "layout": {
-          "line-join": "round",
-          "line-cap": "round"
-        },
-        "paint": {
-          "line-color": "lightgreen",
-          "line-width": 4
-        },
-      "filter": ["==", "name", "China Continental Shelf"]
-      });
-
-      map.addLayer({
-        "id": "Japan Territorial Sea",
-        "type": "line",
-        "source": "route",
-        "layout": {
-          "line-join": "round",
-          "line-cap": "round"
-        },
-        "paint": {
-          "line-color": "red",
-          "line-width": 4
-        },
-      "filter": ["==", "name", "Japan Territorial Sea"]
-      });
-
-      map.addLayer({
-        "id": "China-Vietnam EEZ and Continental Shelf Boundary (2000)",
-        "type": "line",
-        "source": "route",
-        "layout": {
-          "line-join": "round",
-          "line-cap": "round"
-        },
-        "paint": {
-          "line-color": "yellow",
-          "line-width": 4
-        },
-      "filter": ["==", "name", "China-Vietnam EEZ and Continental Shelf Boundary (2000)"]
-      });
-  
-      map.addLayer({
-        "id": "symbols",
-        "type": "symbol",
-        "source": "route",
-        "minzoom": 1,
-        "layout": {
-          "symbol-placement": "line",
-          "text-font": ["Open Sans Regular"],
-          "text-field": '{name}', // part 2 of this is how to do it
-          "text-size": 14
-        },
-        "paint":{
-          "text-color":"white"
-        }
-      //"filter": ["==", "name", "Japan Territorial Sea"]
-    });
-  });
+  <div id="choices">
+    <span>Countries</span>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="People's Republic of China" checked>China</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Japan" checked>Japan</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Singapore">Singapore</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Republic of China (Taiwan)" checked>Taiwan</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Indonesia" checked>Indonesia</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Sri Lanka" checked>Sri Lanka</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="India" checked>India</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Bangladesh" checked>Bangladesh</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Democratic People's Republic of Korea (North Korea)" checked>North Korea</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Cambodia" checked>Cambodia</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Brunei">Brunei</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Thailand" checked>Thailand</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" id="Malaysia" checked>Malaysia</input></div>
+  </div>
   
 
-
-</script>
-
+ <script src="interactive.js"></script>
 </body>
 </html>
