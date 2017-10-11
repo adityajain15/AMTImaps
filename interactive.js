@@ -6,19 +6,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWxhYm1lZGlhIiwiYSI6ImNpbHYycXZ2bTAxajZ1c2tzd
   });
 
 const layerTypes = ["Exclusive Economic Zone","Territorial Sea","Continental Shelf","Territorial Baseline"];
-const countries = ["India",
-"Bangladesh",
-"Brunei",
-"Thailand",
-"Cambodia",
-"Democratic People's Republic of Korea (North Korea)",
-"Indonesia",
-"Japan",
-"People's Republic of China",
-"Republic of China (Taiwan)",
-"Singapore",
-"Sri Lanka",
-"Vietnam"];
+const countries = ["India","Bangladesh","Brunei","Thailand","Cambodia","Democratic People's Republic of Korea (North Korea)","Indonesia","Japan","People's Republic of China","Republic of China (Taiwan)","Singapore","Sri Lanka","Vietnam"];
 
 
 d3.selectAll(".option").on("change",function changeEventHandler(event){
@@ -27,6 +15,17 @@ d3.selectAll(".option").on("change",function changeEventHandler(event){
 
 d3.selectAll(".line").on("change",function changeEventHandler(event){
   toggleLayer(this.id);
+});
+
+d3.select("#NineDash").on("change",function changeEventHandler(event){
+  if(this.checked){
+    filterChange("People's Republic of China","Nine-Dash/U-Shaped Line",true);
+    filterChange("Republic of China (Taiwan)","Nine-Dash/U-Shaped Line",true);
+  }
+  else{
+    filterChange("People's Republic of China","Nine-Dash/U-Shaped Line",false);
+    filterChange("Republic of China (Taiwan)","Nine-Dash/U-Shaped Line",false);
+  }
 });
 
 function filterChange(layer, selected,addFlag){
@@ -50,9 +49,29 @@ function filterChange(layer, selected,addFlag){
       map.setFilter(layer,filter);
     }
   });
+}
 
-  
-  
+function labelChange(layer,selected,isCountry,addFlag){
+  var arr = map.getFilter(layer);
+
+  if(addFlag){
+    if(isCountry){
+      arr[2][1].push(selected);
+    }
+  else{
+      arr[2][2].splice(arr[2][2].indexOf(selected),1);
+    }
+  }
+  else{
+    if(isCountry){
+      arr[2][1].splice(arr[2][1].indexOf(selected),1);
+    }
+    else{
+      arr[2][2].push(selected);
+    }
+  }
+
+  map.setFilter(layer,arr);
 }
 
 function toggleCountry(selected){
@@ -61,14 +80,14 @@ function toggleCountry(selected){
   
   if(layer['layout']['visibility']==="visible"){
     map.setLayoutProperty(layer['id'], 'visibility', 'none');
-    filterChange("Labels",selected,true);
+    labelChange("Labels",selected,true,true);
     layerTypes.map(function(theLayer){
       filterChange(theLayer,selected,true);
     });
   }
   else{
     map.setLayoutProperty(layer['id'], 'visibility', 'visible');
-    filterChange("Labels",selected,false);
+    labelChange("Labels",selected,true,false);
     layerTypes.map(function(theLayer){
       filterChange(theLayer,selected,false);
     });
@@ -80,59 +99,20 @@ function toggleLayer(selected){
   
   if(layer['layout']['visibility']==="visible"){
     map.setLayoutProperty(layer['id'], 'visibility', 'none');
+    labelChange("Labels",selected,false,true);
     countries.map(function(theCountry){
       filterChange(theCountry,selected,false);
     });
   }
   else{
     map.setLayoutProperty(layer['id'], 'visibility', 'visible');
-    //filterChange("Labels",selected,false);
+    labelChange("Labels",selected,false,false);
     countries.map(function(theCountry){
       filterChange(theCountry,selected,true);
     });
   }
 }
-/*
-  map.getStyle().layers.map(function(each){
-    if(each["source-layer"]==="all_claims-7jhily"&&each["id"]===selected){
-      if(map.getLayoutProperty(each['id'], 'visibility')==='visible'){
-        map.setLayoutProperty(each['id'], 'visibility', 'none');
 
-        if(isLine){
-          filterChange("Labels",selected,true);
-          countries.map(function(country){
-            filterChange(country,selected,true);
-          });
-        }
-        else{
-          filterChange("Labels",selected,true);
-          layerTypes.map(function(layer){
-            filterChange(layer,selected,true);
-          });
-        }
-      }
-      else{
-        map.setLayoutProperty(each['id'], 'visibility', 'visible');
-
-        if(isLine){
-          filterChange("Labels",selected,false);
-          countries.map(function(country){
-            filterChange(country,selected,false);
-          });
-        }
-        else{
-          filterChange("Labels",selected,false);
-          layerTypes.map(function(layer){
-            filterChange(layer,selected,false);
-          });
-        }
-
-
-   
-        }
-      }
-  });
-}*/
 
 map.on('style.load', function(){
   Array.prototype.map.call(document.getElementsByClassName('option'), 

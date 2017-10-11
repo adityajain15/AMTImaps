@@ -7,7 +7,7 @@
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,800" rel="stylesheet">
   <style>
   body { margin:0; padding:0; }
   #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -17,13 +17,24 @@
   }
   span{
     font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 900;
+    font-weight: 800;
+    font-size: 18px;
     color: white;
   }
   .inputWrapper{
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
     color: white;
+  }
+
+  .colorKey{
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 5px;
+    vertical-align: middle;
+    border-radius: 20px;
   }
   </style>
 </head>
@@ -34,23 +45,22 @@
     <div class="inputWrapper"><input type="checkbox" class="line" id="Continental Shelf" checked>Continental Shelf</input></div>
     <div class="inputWrapper"><input type="checkbox" class="line" id="Exclusive Economic Zone" checked>Exclusive Economic Zone</input></div>
     <div class="inputWrapper"><input type="checkbox" class="line" id="Territorial Sea" checked>Territorial Sea</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Territorial Baseline" checked>Territorial Baseline</input></div>
-
+    <div class="inputWrapper"><input type="checkbox" class="line" id="Territorial Baseline" checked>Territorial Baseline</input></div> <div class="inputWrapper"><input type="checkbox" id="NineDash" checked>Nine-Dash/U-Shaped Line</input></div>
 
     <span>Countries</span>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="People's Republic of China" checked>China</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Japan" checked>Japan</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Singapore">Singapore</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Republic of China (Taiwan)" checked>Taiwan</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Indonesia">Indonesia</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Sri Lanka" checked>Sri Lanka</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="India" checked>India</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Bangladesh" checked>Bangladesh</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Democratic People's Republic of Korea (North Korea)" checked>North Korea</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Cambodia" checked>Cambodia</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Brunei">Brunei</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Thailand" checked>Thailand</input></div>
-    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Vietnam">Vietnam</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="People's Republic of China" checked><div class="colorKey" style="background: hsl(0, 100%, 50%);"></div>China</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Japan" checked><div class="colorKey" style="background: #33a02c;"></div>Japan</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Singapore"><div class="colorKey" style="background: #fb9a99;"></div>Singapore</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Republic of China (Taiwan)" checked><div class="colorKey" style="background: hsl(178, 100%, 50%);"></div>Taiwan</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Indonesia"><div class="colorKey" style="background: hsl(54, 100%, 50%);"></div>Indonesia</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Sri Lanka" checked><div class="colorKey" style="background: hsl(0, 0%, 66%);"></div>Sri Lanka</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="India" checked><div class="colorKey" style="background: hsl(31, 100%, 50%);"></div>India</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Bangladesh" checked><div class="colorKey" style="background: hsl(0, 27%, 56%);"></div>Bangladesh</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Democratic People's Republic of Korea (North Korea)" checked><div class="colorKey" style="background: #6a3d9a;"></div>North Korea</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Cambodia" checked><div class="colorKey" style="background: hsl(107, 100%, 50%);"></div>Cambodia</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Brunei"><div class="colorKey" style="background: #fb9a99;"></div>Brunei</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Thailand" checked><div class="colorKey" style="background: hsl(289, 100%, 50%);"></div>Thailand</input></div>
+    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Vietnam"><div class="colorKey" style="background: hsl(194, 100%, 50%);"></div>Vietnam</input></div>
   </div>
   
 
