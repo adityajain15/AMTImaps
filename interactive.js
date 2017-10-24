@@ -1,12 +1,12 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWxhYm1lZGlhIiwiYSI6ImNpbHYycXZ2bTAxajZ1c2tzdWU1b3gydnYifQ.AHxl8pPZsjsqoz95-604nw';
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/ilabmedia/cj8oig9cp3uo52rmin27horsz',
+    style: 'mapbox://styles/ilabmedia/cj94fqpttim2v2rmi7yk0ie0i',
     zoom: 0
   });
 
 const layerTypes = ["Exclusive Economic Zone","Territorial Sea","Continental Shelf","Territorial Baseline"];
-const countries = ["India","Bangladesh","Brunei","Thailand","Cambodia","Democratic People's Republic of Korea (North Korea)","Indonesia","Japan","People's Republic of China","Republic of China (Taiwan)","Singapore","Sri Lanka","Vietnam"];
+const countries = ["India","Bangladesh","Brunei","Thailand","Cambodia","Democratic People's Republic of Korea (North Korea)","Indonesia","Japan","People's Republic of China","Republic of China (Taiwan)","Singapore","Sri Lanka","Vietnam","South Korea","Maldives","Malaysia","Myanmar","Philippines"];
 
 
 d3.selectAll(".option").on("change",function changeEventHandler(event){
@@ -16,6 +16,58 @@ d3.selectAll(".option").on("change",function changeEventHandler(event){
 d3.selectAll(".line").on("change",function changeEventHandler(event){
   toggleLayer(this.id);
 });
+
+function lineSelectNone(){
+  var allLines = document.querySelectorAll('.line');
+  for(var i=0;i<allLines.length;i++){
+    if(allLines[i].checked){
+      allLines[i].checked=false;
+      toggleLayer(allLines[i].id);
+    }
+  }
+  var nineDash = document.querySelector('#NineDash');
+  if(nineDash.checked){
+    nineDash.checked=false;
+    filterChange("People's Republic of China","Nine-Dash/U-Shaped Line",false);
+    filterChange("Republic of China (Taiwan)","Nine-Dash/U-Shaped Line",false);
+  }
+}
+
+function lineSelectAll(){
+  var allLines = document.querySelectorAll('.line');
+  for(var i=0;i<allLines.length;i++){
+    if(!allLines[i].checked){
+      allLines[i].checked=true;
+      toggleLayer(allLines[i].id);
+    }
+  }
+  var nineDash = document.querySelector('#NineDash');
+  if(!nineDash.checked){
+    nineDash.checked=true;
+    filterChange("People's Republic of China","Nine-Dash/U-Shaped Line",true);
+    filterChange("Republic of China (Taiwan)","Nine-Dash/U-Shaped Line",true);
+  }
+}
+
+function countrySelectNone(){
+  var allCountries = document.querySelectorAll('.option');
+  for(var i=0;i<allCountries.length;i++){
+    if(allCountries[i].checked){
+      allCountries[i].checked=false;
+      toggleCountry(allCountries[i].id);
+    }
+  }
+}
+
+function countrySelectAll(){
+  var allCountries = document.querySelectorAll('.option');
+  for(var i=0;i<allCountries.length;i++){
+    if(!allCountries[i].checked){
+      allCountries[i].checked=true;
+      toggleCountry(allCountries[i].id);
+    }
+  }
+}
 
 d3.select("#NineDash").on("change",function changeEventHandler(event){
   if(this.checked){
@@ -75,7 +127,6 @@ function labelChange(layer,selected,isCountry,addFlag){
 }
 
 function toggleCountry(selected){
-  console.log(selected);
   var layer = map.getStyle().layers.filter(function(each){return each["id"]===selected})[0];
   
   if(layer['layout']['visibility']==="visible"){
