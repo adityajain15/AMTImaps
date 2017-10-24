@@ -1,13 +1,15 @@
 # About this map
 This is a map that was designed to address the issues of a [previous iteration](https://amti.csis.org/carto/claims/?u=csis&t=multilayer_claims_copy&v=0d8d4808-33c7-11e6-b50b-0e31c9be1b51).
-#How this map works
-##Data Prep
+
+# How this map works
+
+## Data Prep
 [The data](https://github.com/CSIS-iLab/AMTImaps/tree/master/excel) obtained from the program was first imported into Carto. Carto returns a SHP file that can be uploaded Mapbox as a data-source.
 
-##Styling
+## Styling
 The functioning of this map depends significantly on Mapbox studio. A new layer is created for each claimant(country) with a unique color. Correspondingly, all types of claims have a unique styling property (such as stroke-dasharray) that is overlaid on country lines.  The process of creating a new claim/claimant described below.
 
-###To create a new type of Claim
+### To create a new type of Claim
 1. Create a new layer
 2. For source, select the file that you uploaded (SHP file). All layers will have this same dataset.
 3. For type, select line. 
@@ -17,7 +19,7 @@ The functioning of this map depends significantly on Mapbox studio. A new layer 
 7. Switch to the 'Style' tab. Style the claim line as you wish. 
 8. Add a width function with zoom as a variable. Zoom 4 Width 2px -> Zoom 22 Width 8px
 
-###To create a new Claimant
+### To create a new Claimant
 1. Create a new layer
 2. For source, select the file that you uploaded (SHP file). All layers will have this same dataset.
 3. For type, select line. 
