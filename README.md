@@ -15,7 +15,7 @@ The functioning of this map depends significantly on Mapbox studio. A new layer 
 3. For type, select line. 
 4. Next, click add filter. Follow the below instructions exactly because order is important. 
 5. Filter on 'country' > 'is not any of' > Add filter value 'Mexico' > Add filter value 'Panama'
-6. Filter on 'type' > 'is any of' > *'TYPE OF CLAIM YOU WANT TO ADD'
+6. Filter on 'type' > 'is any of' > *'TYPE OF CLAIM YOU WANT TO ADD'*
 7. Switch to the 'Style' tab. Style the claim line as you wish. 
 8. Add a width function with zoom as a variable. Zoom 4 Width 2px -> Zoom 22 Width 8px
 
@@ -29,4 +29,7 @@ The functioning of this map depends significantly on Mapbox studio. A new layer 
 7. Switch to the 'Style' tab. Give the country lines a color that distinguishes itself from its neighbors. 
 8. Add a width function with zoom as a variable. Zoom 4 Width 2px -> Zoom 22 Width 8px
 
+Please note that Mapbox Styles seems to take a while to reflect locally. You can work around this problem by copying the style and using the token of the style-copy.
 
+## Code
+The javascript code that accompanies this map attaches event handlers to checkboxes. These handlers handle the work of adding and removing strings from the Filter arrays of toggled layers. 
