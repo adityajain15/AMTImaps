@@ -2,7 +2,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWxhYm1lZGlhIiwiYSI6ImNpbHYycXZ2bTAxajZ1c2tzdWU1b3gydnYifQ.AHxl8pPZsjsqoz95-604nw';
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/ilabmedia/cj94fqpttim2v2rmi7yk0ie0i', 
+    style: 'mapbox://styles/ilabmedia/cj94fqpttim2v2rmi7yk0ie0i',
     zoom: 0
   });
 
@@ -10,9 +10,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWxhYm1lZGlhIiwiYSI6ImNpbHYycXZ2bTAxajZ1c2tzd
 var layerTypes = ["Exclusive Economic Zone","Territorial Sea","Continental Shelf","Territorial Baseline"];
 var countries = ["India","Bangladesh","Brunei","Thailand","Cambodia","Democratic People's Republic of Korea (North Korea)","Indonesia","Japan","People's Republic of China","Republic of China (Taiwan)","Singapore","Sri Lanka","Vietnam","South Korea","Maldives","Malaysia","Myanmar","Philippines"];
 
+//Add navigation controls
+var nav = new mapboxgl.NavigationControl();
+map.addControl(nav, 'top-left');
+
+
 //Function that runs when the style has been loaded
 map.on('style.load', function(){
-  Array.prototype.map.call(document.getElementsByClassName('option'), 
+  Array.prototype.map.call(document.getElementsByClassName('option'),
   function(option){
     if(!option.checked){
       var selectedCountry = option.id;
@@ -29,7 +34,7 @@ d3.selectAll(".option").on("change",function changeEventHandler(event){
 //Function for toggling claimants, attached to checkbox event handlers
 function toggleCountry(selected){
   var layer = map.getStyle().layers.filter(function(each){return each["id"]===selected})[0];
-  
+
   if(layer['layout']['visibility']==="visible"){
     map.setLayoutProperty(layer['id'], 'visibility', 'none');
     labelChange("Labels",selected,true,true);
@@ -54,7 +59,7 @@ d3.selectAll(".line").on("change",function changeEventHandler(event){
 //Function for toggling claims, attached to checkbox event handlers
 function toggleLayer(selected){
   var layer = map.getStyle().layers.filter(function(each){return each["id"]===selected})[0];
-  
+
   if(layer['layout']['visibility']==="visible"){
     map.setLayoutProperty(layer['id'], 'visibility', 'none');
     labelChange("Labels",selected,false,true);
@@ -163,7 +168,7 @@ function filterChange(layer, selected,addFlag){
   });
 }
 
-//Similar to filterChange, but for line labels 
+//Similar to filterChange, but for line labels
 function labelChange(layer,selected,isCountry,addFlag){
   var arr = map.getFilter(layer);
 
@@ -185,11 +190,3 @@ function labelChange(layer,selected,isCountry,addFlag){
   }
   map.setFilter(layer,arr);
 }
-
-
-
-
-
-
-
-
