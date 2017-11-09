@@ -3,7 +3,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWxhYm1lZGlhIiwiYSI6ImNpbHYycXZ2bTAxajZ1c2tzd
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/ilabmedia/cj94fqpttim2v2rmi7yk0ie0i',
-    zoom: 0
+    zoom: 3.3,
+    center: [110,25]
   });
 
 //Arrays that list out different types of Claims and Claimants
