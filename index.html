@@ -70,33 +70,43 @@
   <div id="choices">
     <span>Type of Claim</span>
     <input type="button" onclick="lineSelectAll()" value="Select All"><input type="button" onclick="lineSelectNone()" value="Select None">
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Territorial Baseline" checked>Territorial Baseline</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-dasharray: 0,2.5,2.5;"/>
-      </svg>
-    </div> 
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Territorial Sea" checked>Territorial Sea</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-width: 4px;"/>
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke:hsl(185, 9%, 81%); stroke-width: 2px;"/>
-      </svg>
+    <div class="inputWrapper">
+        <input type="checkbox" class="line" id="Territorial Baseline" checked>
+          <svg class="lineContainer">
+            <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-dasharray: 0,2.5,2.5;"/>
+          </svg> Territorial Baseline
+        </input>
     </div>
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Exclusive Economic Zone" checked>Exclusive Economic Zone</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5"/>
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke:black;stroke-dasharray: 0,4,4;"/>
-      </svg>
+    <div class="inputWrapper">
+        <input type="checkbox" class="line" id="Territorial Sea" checked>
+          <svg class="lineContainer">
+            <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-width: 4px;"/>
+            <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke:hsl(185, 9%, 81%); stroke-width: 2px;"/>
+         </svg> Territorial Sea
+       </input>
     </div>
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Continental Shelf" checked>Continental Shelf</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke: white;stroke-width:5px;"/>
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5"/>
-      </svg>
+    <div class="inputWrapper">
+        <input type="checkbox" class="line" id="Exclusive Economic Zone" checked>
+          <svg class="lineContainer">
+            <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5"/>
+            <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke:black;stroke-dasharray: 0,4,4;"/>
+          </svg> Exclusive Economic Zone
+        </input>
     </div>
-    <div class="inputWrapper"><input type="checkbox" id="NineDash" checked>Nine-Dash/U-Shaped Line</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-dasharray: 0,5,20,5;" />
-      </svg>
+    <div class="inputWrapper">
+        <input type="checkbox" class="line" id="Continental Shelf" checked>
+          <svg class="lineContainer">
+            <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke: white;stroke-width:5px;"/>
+            <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5"/>
+          </svg> Continental Shelf
+        </input>
+    </div>
+    <div class="inputWrapper">
+        <input type="checkbox" id="NineDash" checked>
+          <svg class="lineContainer">
+            <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-dasharray: 0,5,20,5;" />
+          </svg> Nine-Dash/U-Shaped Line
+       </input>
     </div>
 
   <span>Claimants</span>
@@ -131,14 +141,14 @@
   <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="South Korea"><div class="colorKey" style="background: hsl(59, 100%, 50%);"></div>South Korea</input></div>
 
   <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Sri Lanka" checked><div class="colorKey" style="background: hsl(0, 0%, 66%);"></div>Sri Lanka</input></div>
-  
+
   <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Republic of China (Taiwan)" checked><div class="colorKey" style="background: hsl(178, 100%, 50%);"></div>Taiwan</input></div>
 
   <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Thailand" checked><div class="colorKey" style="background: hsl(289, 100%, 50%);"></div>Thailand</input></div>
 
   <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Vietnam"><div class="colorKey" style="background: hsl(194, 100%, 50%);"></div>Vietnam</input></div>
   </div>
-  
+
 
  <script src="interactive.js"></script>
 </body>
