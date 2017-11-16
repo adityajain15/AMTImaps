@@ -4,7 +4,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWxhYm1lZGlhIiwiYSI6ImNpbHYycXZ2bTAxajZ1c2tzd
     container: 'map',
     style: 'mapbox://styles/ilabmedia/cj94fqpttim2v2rmi7yk0ie0i',
     zoom: 3.6,
-    center: [110,23]
+    center: [110,23],
   });
 
 //Arrays that list out different types of Claims and Claimants
@@ -14,6 +14,12 @@ var countries = ["India","Bangladesh","Brunei","Thailand","Cambodia","Democratic
 //Add navigation controls
 var nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'top-left');
+
+
+//Toggle Key Menu
+$("#tab").click(function() {
+    $('.slide').toggleClass('slide-hide');
+});
 
 
 //Function that runs when the style has been loaded
