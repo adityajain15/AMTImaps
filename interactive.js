@@ -19,6 +19,8 @@ map.addControl(nav, 'top-left');
 //Toggle Key Menu
 $("#tab").click(function() {
     $('.slide').toggleClass('slide-hide');
+    $('.fa').toggleClass('fa-angle-double-up');
+    $('.fa').toggleClass('fa-angle-double-down')
 });
 
 
