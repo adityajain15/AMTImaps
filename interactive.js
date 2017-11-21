@@ -7,6 +7,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWxhYm1lZGlhIiwiYSI6ImNpbHYycXZ2bTAxajZ1c2tzd
     center: [110,23],
   });
 
+
+
 //Arrays that list out different types of Claims and Claimants
 var layerTypes = ["Exclusive Economic Zone","Territorial Sea","Continental Shelf","Territorial Baseline"];
 var countries = ["India","Bangladesh","Brunei","Thailand","Cambodia","Democratic People's Republic of Korea (North Korea)","Indonesia","Japan","People's Republic of China","Republic of China (Taiwan)","Singapore","Sri Lanka","Vietnam","South Korea","Maldives","Malaysia","Myanmar","Philippines"];
@@ -14,6 +16,8 @@ var countries = ["India","Bangladesh","Brunei","Thailand","Cambodia","Democratic
 //Add navigation controls
 var nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'top-left');
+
+
 
 
 //Toggle Key Menu
