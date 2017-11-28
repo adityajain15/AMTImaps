@@ -4,27 +4,67 @@
   <meta charset='utf-8' />
   <title></title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+  <script src="https://use.fontawesome.com/80f81b8152.js"></script>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
   <style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
-  #choices{position: absolute;bottom: 0;right: 0;background-color: #023850;padding:1%;}
+  body{ margin:0; padding:0; }
+  #map{ position:absolute; top:0; bottom:0; width:100%;}
+  .tabContainer{position: absolute;bottom: 0;right: 0; width: 270px; height: 395px; overflow: hidden;}
+  .choices{position: absolute;bottom: 0;right: 0; width: auto; height: auto;; text-align: right;}
   .mapboxgl-ctrl.mapboxgl-ctrl-attrib{
     display: none;
   }
+  #tab{
+    position: relative;
+    right: 90px;
+    bottom: 0px;
+    display: inline-block;
+	width: 50px;
+	height: 0;
+	border-right: 20px solid transparent;
+	border-bottom: 19px solid #FFFFFF;
+	border-left: 20px solid transparent;
+    z-index: 999;
+    text-align: center;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 400;
+    color: #023850;
+  }
+  #tab:hover{
+    color: #1BB19E;
+  }
+  #menu{
+    background-color: #FFFFFF;
+    display: inline-block;
+    padding:10px;
+    text-align: left;
+  }
+  .slide{
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+  }
+  .slide-hide{
+    position: relative;
+    bottom: -376px;
+  }
+
   span{
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'PT Sans Narrow', sans-serif;
     font-weight: 800;
     font-size: 18px;
-    color: white;
+    color: #023850;
   }
   .inputWrapper{
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'PT Sans Narrow', sans-serif;
     font-weight: 400;
-    color: white;
+    color: #023850;
   }
 
   .colorKey{
@@ -35,6 +75,7 @@
     margin-left: 5px;
     vertical-align: middle;
     border-radius: 20px;
+    border: black solid .5px;
   }
 
   input[type="button"]{
@@ -45,8 +86,8 @@
   }
 
     input[type="button"]:hover{
-    background: #ffcc00;
-    color: black;
+    background: #1BB19E;
+    color: #023850;
     cursor: pointer;
   }
 
@@ -55,90 +96,136 @@
       display: inline-block;
       height: 15px;
       vertical-align: middle;
-      background-color: hsl(185, 9%, 81%);
       position: relative;
     }
 
     .lineLegend{
       stroke-width:2;
-      stroke:red;
+      stroke:#023850;
+      stroke-opacity: 0.7;
     }
+
+    .claim{
+      margin-bottom: 10px;
+    }
+    .column{
+      display: inline-block;
+    }
+    .right{
+      padding-left: 10px;
+    }
+    a.mapboxgl-ctrl-logo{
+      display: none;
+    }
+
+
+
   </style>
 </head>
 <body>
   <div id='map'></div>
-  <div id="choices">
-    <span>Type of Claim</span>
-    <input type="button" onclick="lineSelectAll()" value="Select All"><input type="button" onclick="lineSelectNone()" value="Select None">
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Territorial Baseline" checked>Territorial Baseline</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-dasharray: 0,2.5,2.5;"/>
-      </svg>
-    </div> 
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Territorial Sea" checked>Territorial Sea</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-width: 4px;"/>
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke:hsl(185, 9%, 81%); stroke-width: 2px;"/>
-      </svg>
-    </div>
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Exclusive Economic Zone" checked>Exclusive Economic Zone</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5"/>
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke:black;stroke-dasharray: 0,4,4;"/>
-      </svg>
-    </div>
-    <div class="inputWrapper"><input type="checkbox" class="line" id="Continental Shelf" checked>Continental Shelf</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke: white;stroke-width:5px;"/>
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5"/>
-      </svg>
-    </div>
-    <div class="inputWrapper"><input type="checkbox" id="NineDash" checked>Nine-Dash/U-Shaped Line</input>
-      <svg class="lineContainer">
-        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-dasharray: 0,5,20,5;" />
-      </svg>
-    </div>
 
-  <span>Claimants</span>
-  <input type="button" onclick="countrySelectAll()" value="Select All"><input type="button" onclick="countrySelectNone()" value="Select None">
+  <div class="tabContainer">
+     <div class="choices slide">
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Bangladesh" checked><div class="colorKey" style="background: hsl(116, 53%, 51%);"></div>Bangladesh</input></div>
+        <div id="tab"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp Key</div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Brunei"><div class="colorKey" style="background: #fb9a99;"></div>Brunei</input></div>
+        <div id="menu">
+            <div class="claim">
+                <span>Type of Claim</span>
+                <input type="button" onclick="lineSelectAll()" value="Select All"><input type="button" onclick="lineSelectNone()" value="Select None">
+                <div class="inputWrapper">
+                    <input type="checkbox" class="line" id="Territorial Baseline" checked>
+                      <svg class="lineContainer">
+                        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-dasharray: 0,2.5,2.5;"/>
+                      </svg> Territorial Baseline
+                    </input>
+                </div>
+                <div class="inputWrapper">
+                    <input type="checkbox" class="line" id="Territorial Sea" checked>
+                      <svg class="lineContainer">
+                        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-width: 4px;"/>
+                        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke:hsl(185, 9%, 81%); stroke-width: 2px;"/>
+                     </svg> Territorial Sea
+                   </input>
+                </div>
+                <div class="inputWrapper">
+                    <input type="checkbox" class="line" id="Exclusive Economic Zone" checked>
+                      <svg class="lineContainer">
+                        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5"/>
+                        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke:black;stroke-dasharray: 0,4,4;"/>
+                      </svg> Exclusive Economic Zone
+                    </input>
+                </div>
+                <div class="inputWrapper">
+                    <input type="checkbox" class="line" id="Continental Shelf" checked>
+                      <svg class="lineContainer">
+                        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke: white;stroke-width:5px;"/>
+                        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5"/>
+                      </svg> Continental Shelf
+                    </input>
+                </div>
+                <div class="inputWrapper">
+                    <input type="checkbox" id="NineDash" checked>
+                      <svg class="lineContainer">
+                        <line class="lineLegend" x1="0" y1="7.5" x2="60" y2="7.5" style="stroke-dasharray: 0,5,20,5;" />
+                      </svg> Nine-Dash/U-Shaped Line
+                   </input>
+                </div>
+            </div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Cambodia" checked><div class="colorKey" style="background: hsl(107, 100%, 50%);"></div>Cambodia</input></div>
+            <div class="claimants">
+                <span>Claimants</span>
+                <input type="button" onclick="countrySelectAll()" value="Select All"><input type="button" onclick="countrySelectNone()" value="Select None">
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="People's Republic of China" checked><div class="colorKey" style="background: hsl(0, 100%, 50%);"></div>China</input></div>
+                <div class="left column">
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Bangladesh" checked><div class="colorKey" style="background: hsl(122, 45%, 49.2%);"></div>Bangladesh</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="India" checked><div class="colorKey" style="background: hsl(31, 100%, 50%);"></div>India</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Brunei"><div class="colorKey" style="background: hsl(60, 100%, 95%);"></div>Brunei</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Indonesia"><div class="colorKey" style="background: hsl(54, 100%, 50%);"></div>Indonesia</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Cambodia" checked><div class="colorKey" style="background: hsl(59, 100%, 67%);"></div>Cambodia</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Japan" checked><div class="colorKey" style="background: #33a02c;"></div>Japan</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="People's Republic of China" checked><div class="colorKey" style="background: hsl(359, 85.1%, 52.7%);"></div>China</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Democratic People's Republic of Korea (North Korea)" checked><div class="colorKey" style="background: #6a3d9a;"></div>North Korea</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="India" checked><div class="colorKey" style="background: hsl(26, 86%, 55.1%);"></div>India</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Malaysia" checked><div class="colorKey" style="background: hsl(42, 25%, 54%);"></div>Malaysia</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Indonesia"><div class="colorKey" style="background: hsl(129, 38.3%, 68.2%);"></div>Indonesia</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Maldives" checked><div class="colorKey" style="background: hsl(72, 100%, 50%);"></div>Maldives</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Japan" checked><div class="colorKey" style="background: hsl(134, 48.5%, 25.9%);"></div>Japan</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Myanmar" checked><div class="colorKey" style="background: hsl(258, 100%, 50%);"></div>Myanmar</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Democratic People's Republic of Korea (North Korea)" checked><div class="colorKey" style="background: hsl(290, 46.5%, 39.6%);"></div>North Korea</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Philippines" checked><div class="colorKey" style="background: hsl(40, 100%, 50%);"></div>Philippines</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Malaysia" checked><div class="colorKey" style="background: hsl(187, 9%, 81%);"></div>Malaysia</input></div>
+                </div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Singapore"><div class="colorKey" style="background: #fb9a99;"></div>Singapore</input></div>
+                <div class="right column">
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Maldives" checked><div class="colorKey" style="background: hsl(70, 47%, 42%);"></div>Maldives</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="South Korea"><div class="colorKey" style="background: hsl(59, 100%, 50%);"></div>South Korea</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Myanmar" checked><div class="colorKey" style="background: hsl(236, 40%, 31%);"></div>Myanmar</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Sri Lanka" checked><div class="colorKey" style="background: hsl(0, 0%, 66%);"></div>Sri Lanka</input></div>
-  
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Republic of China (Taiwan)" checked><div class="colorKey" style="background: hsl(178, 100%, 50%);"></div>Taiwan</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Philippines" checked><div class="colorKey" style="background: hsl(324, 53.6%, 62%);"></div>Philippines</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Thailand" checked><div class="colorKey" style="background: hsl(289, 100%, 50%);"></div>Thailand</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Singapore"><div class="colorKey" style="background: hsl(330, 85.8%, 50.2%);"></div>Singapore</input></div>
 
-  <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Vietnam"><div class="colorKey" style="background: hsl(194, 100%, 50%);"></div>Vietnam</input></div>
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="South Korea"><div class="colorKey" style="background: hsl(51, 100%, 49.8%);"></div>South Korea</input></div>
+
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Sri Lanka" checked><div class="colorKey" style="background: hsl(180, .5%, 37.8%);"></div>Sri Lanka</input></div>
+
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Republic of China (Taiwan)" checked><div class="colorKey" style="background: hsl(358, 95%, 92%);"></div>Taiwan</input></div>
+
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Thailand" checked><div class="colorKey" style="background: hsl(356, 66%, 40%);"></div>Thailand</input></div>
+
+                    <div class="inputWrapper"><input type="checkbox" class="option" type="country" id="Vietnam"><div class="colorKey" style="background: hsl(181, 98%, 82%);"></div>Vietnam</input></div>
+                </div>
+
+            </div>
+
+         </div>
+
+      </div>
+
   </div>
-  
+
 
  <script src="interactive.js"></script>
 </body>
